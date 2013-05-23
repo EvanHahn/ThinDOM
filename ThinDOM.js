@@ -10,7 +10,6 @@ function ThinDOM(tag, attributes) {
 
 /**
  * Iterate over all of the element's attributes. 
- * @param cb(key, value)
  */
 ThinDOM.prototype.append = (function(other) {
     if(other instanceof ThinDOM) {
@@ -49,7 +48,7 @@ ThinDOM.prototype.css = (function(properties, value) {
 });
 
 /**
- * Set the inner HTML of the element.
+ * Get/set the inner HTML of the element.
  */
 ThinDOM.prototype.html = (function(html) {
     if(typeof html == 'undefined') {
@@ -61,6 +60,9 @@ ThinDOM.prototype.html = (function(html) {
     }
 });
 
+/**
+ * Set the element's attributes
+ */
 ThinDOM.prototype.attr = (function(properties, value) {
     if(properties.constructor === String) {
         this.el.setAttribute(properties, value);
@@ -73,6 +75,10 @@ ThinDOM.prototype.attr = (function(properties, value) {
     }
     return this;
 });
+
+/**
+ * Get the real DOM element.
+ */
 ThinDOM.prototype.get = (function() {
     return this.el;
 });
