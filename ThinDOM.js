@@ -3,7 +3,7 @@
  */
 function ThinDOM(tag, attributes) {
     this.el = document.createElement(tag);
-    if(typeof attributes != 'undefined') {
+    if (attributes) {
         this.attr(attributes);
     }
 }
@@ -11,74 +11,71 @@ function ThinDOM(tag, attributes) {
 /**
  * Iterate over all of the element's attributes. 
  */
-ThinDOM.prototype.append = (function(other) {
-    if(other instanceof ThinDOM) {
+ThinDOM.prototype.append = function(other) {
+    if (other instanceof ThinDOM) {
         this.el.appendChild(other.get());
     } else if (other instanceof jQuery) {
-        if(other.length > 1) {
+        if (other.length > 1) {
             var self = this;
             other.each(function(i, otherEl) {
                 self.el.appendChild(otherEl);
             });
-        }
-        else {
+        } else {
             this.el.appendChild(other[0]);
         }
     } else if (other instanceof Element) {
         this.el.appendChild(other);
     }
-    
     return this;
-});
+};
 
 /**
  * Set the element's style attributes
  */
-ThinDOM.prototype.css = (function(properties, value) {
-    if(properties.constructor === String) {
+ThinDOM.prototype.css = function(properties, value) {
+    if (properties.constructor === String) {
         this.el.style.properties = value;
     } else if (properties instanceof Object) {
-        for(var key in properties) {
-            if(properties.hasOwnProperty(key)) {
+        for (var key in properties) {
+            if (properties.hasOwnProperty(key)) {
                 this.el.style.key = properties[key];
             }
         }
     }
     return this;
-});
+};
 
 /**
  * Get/set the inner HTML of the element.
  */
-ThinDOM.prototype.html = (function(html) {
-    if(typeof html == 'undefined') {
+ThinDOM.prototype.html = function(html) {
+    if (typeof html === 'undefined') {
         return this.el.innerHTML;
-    }
-    else {
+    } else {
         this.el.innerHTML = html;
         return this;
     }
-});
+};
 
 /**
  * Set the element's attributes
  */
-ThinDOM.prototype.attr = (function(properties, value) {
-    if(properties.constructor === String) {
+ThinDOM.prototype.attr = function(properties, value) {
+    if (properties.constructor === String) {
         this.el.setAttribute(properties, value);
     } else if (properties instanceof Object) {
-        for(var key in properties) {
-            if(properties.hasOwnProperty(key)) {
+        for (var key in properties) {
+            if (properties.hasOwnProperty(key)) {
                 this.el.setAttribute(key, properties[key]);
             }
         }
     }
     return this;
-});
+};
 
 /**
  * Get the real DOM element.
  */
-ThinDOM.prototype.get = (function() {
+ThinDOM.prototype.get = function() {
     return this.el;
-});
+};
