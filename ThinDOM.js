@@ -14,7 +14,7 @@ function ThinDOM(tag, attributes) {
 ThinDOM.prototype.append = function(other) {
     if (other instanceof ThinDOM) {
         this.el.appendChild(other.get());
-    } else if (other instanceof jQuery) {
+    } else if ((window.jQuery) && ((other instanceof jQuery)) {
         if (other.length > 1) {
             var self = this;
             other.each(function(i, otherEl) {
